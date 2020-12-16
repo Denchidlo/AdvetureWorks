@@ -1,0 +1,13 @@
+﻿<Window x:Class="Northwind.DataExplorer.Windows.ProductObserver"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Northwind.DataExplorer.Windows"
+        mc:Ignorable="d"
+        Title="ProductObserver" MinHeight="501.176" MinWidth="448.824" Height="501.176" Width="448.824">
+    <Grid>
+        <TextBlock Name="TB1" HorizontalAlignment="Left" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Height="451" Width="422" Margin="10,10,0,0"/>
+
+    </Grid>
+</Window>

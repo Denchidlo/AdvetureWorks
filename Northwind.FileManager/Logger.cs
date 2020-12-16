@@ -24,8 +24,7 @@ namespace Northwind.FileManager
 
         public Logger()
         {
-            DirectoryInfo info = new DirectoryInfo(Environment.CurrentDirectory);
-            path = info.Parent.Parent.FullName + "\\appsettings.json";
+            path = "C:\\Users\\Xiaomi\\source\\repos\\AdvetureWorks\\Northwind.FileManager\\appsettings.json";
             config = FileOperations.GetConfiguration(path);
             watcher = new FileSystemWatcher(config.Source);
             watcher.NotifyFilter = NotifyFilters.LastAccess
@@ -54,10 +53,11 @@ namespace Northwind.FileManager
         }
         private void FileTransfer(object sender, FileSystemEventArgs e)
         {
+            Thread.Sleep(1000);
             lock (control)
             {
                 var dirInfo = new DirectoryInfo(config.Target);
-                var filePath = Path.Combine(config.Target, e.Name);
+                var filePath = Path.Combine(config.Source, e.Name);
                 var fileName = e.Name;
                 var dt = DateTime.Now;
                 var subPath = $"{dt.ToString("yyyy", DateTimeFormatInfo.InvariantInfo)}\\" +
@@ -86,10 +86,10 @@ namespace Northwind.FileManager
                 File.Move(compressedPath, newCompressedPath);
                 FileOperations.Decompress(newCompressedPath, decompressedPath);
                 FileOperations.DecryptFile(decompressedPath, decompressedPath);
-                FileOperations.AddToArchive(decompressedPath);
-                File.Delete(newPath);
-                File.Delete(newCompressedPath);
-                File.Delete(decompressedPath);
+                //FileOperations.AddToArchive(decompressedPath);
+                //File.Delete(newPath);
+                //File.Delete(newCompressedPath);
+                //File.Delete(decompressedPath);
             }
         }
     }

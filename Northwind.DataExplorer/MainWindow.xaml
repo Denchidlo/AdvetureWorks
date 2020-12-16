@@ -1,0 +1,36 @@
+﻿<Window x:Class="Northwind.DataExplorer.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Northwind.DataExplorer"
+        mc:Ignorable="d"
+        Title="Data explorer" Height="450" Width="800">
+    <Grid>
+        <DockPanel LastChildFill="True">
+            <Grid DockPanel.Dock="Top" Height="20" VerticalAlignment="Top" Background="#FFF4F4F4">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width ="700"/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width ="22"/>
+                </Grid.ColumnDefinitions>
+            </Grid>
+            <DockPanel LastChildFill="True" Background="#FFC5C5C5">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="200"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <ListView Name="ProductCategories" Grid.Column="0" Background="#FFD6D4D4" MouseDoubleClick="ProductCategories_MouseDoubleClick"/>
+                    <ListView Name="Products" Grid.Column="1" Background="#FFD6D4D4" MouseDoubleClick="Products_MouseDoubleClick"/>
+                </Grid>
+            </DockPanel>
+        </DockPanel>
+    </Grid>
+</Window>

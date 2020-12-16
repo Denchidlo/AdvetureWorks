@@ -14,8 +14,7 @@ namespace Northwind.ServiceLayer.API
         IDataProvider provider;
         public Database(string connectionString, ProviderType type)
         {
-            //provider = type == ProviderType.LinqProvider ? new LinqDataProvider(connectionString) : new SqlDataProvider(connectionString);
-            provider = new LinqDataProvider(connectionString);
+            provider = type == ProviderType.LinqProvider ? (IDataProvider)(new LinqDataProvider(connectionString)) : (IDataProvider)(new SqlDataProvider(connectionString));
             this.Update();            
         }
         public void Update()
@@ -94,7 +93,7 @@ namespace Northwind.ServiceLayer.API
         public Customer GetCustomer(int id)
         {
             foreach (var el in Customers)
-                if (el.CustomerId == id)
+                if (el.CustomerID == id)
                     return el;
             return null;
         }

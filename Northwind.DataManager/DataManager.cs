@@ -22,7 +22,7 @@ namespace Northwind.DataManager
             DirectoryInfo info = new DirectoryInfo(Environment.CurrentDirectory);
             string path = info.Parent.Parent.FullName + "\\appsettings.json";
             config = DataConfig.GetConfiguration(path);
-            Repository = new Database(config.ConnectionString, ProviderType.LinqProvider);
+            Repository = new Database(config.ConnectionString, config.Type);
             Repository.CalculateSummary();
         }
 
@@ -32,7 +32,7 @@ namespace Northwind.DataManager
             string path = info.Parent.Parent.FullName + "\\appsettings.json";
             this.config = cfg;
             cfg.SetConfiguration(path);
-            Repository = new Database(config.ConnectionString, ProviderType.LinqProvider);
+            Repository = new Database(config.ConnectionString, config.Type);
             Repository.CalculateSummary();
         }
 
@@ -40,7 +40,8 @@ namespace Northwind.DataManager
         {
             ISerrializer serrializer = new XmlParser();
             string s = serrializer.Serialize(Repository.DetailedSummaries);
-            using (StreamWriter sw = new StreamWriter($"{config.TargetPath}\\file_{DateTime.Now}.xml"))
+            string pth = $"{this.config.TargetPath}\\file_{DateTime.Now.Date.ToString("MM.dd.yyyy").Replace(':', '-')}.xml";
+            using (StreamWriter sw = new StreamWriter(pth))
             {
                 sw.Write(s);
             }

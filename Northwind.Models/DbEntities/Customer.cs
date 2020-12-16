@@ -8,7 +8,7 @@ namespace Northwind.Models.DbEntities
     public class Customer
     {
         [Column(IsPrimaryKey = true, IsDbGenerated = true, CanBeNull = false)]
-        public int CustomerId { get; set; }
+        public int CustomerID { get; set; }
         [Column(Name = "NameStyle", CanBeNull = false)]
         public bool NameStyle { get; set; }
         [Column(Name = "Title")]

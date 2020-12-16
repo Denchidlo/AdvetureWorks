@@ -55,10 +55,6 @@ namespace Northwind.ConfigurationManager.Uitls
                 FieldInfo info = type.GetField(memberName);
                 info.SetValue(obj, value);
             }
-            else
-            {
-                throw new Exception("This type doesn't contain member with this name");
-            }
         }
     }
 }
