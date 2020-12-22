@@ -26,7 +26,7 @@ namespace Northwind.DataManager.Config
             using (var file = File.Open(src, FileMode.Create))
             {
                 StreamWriter writer = new StreamWriter(file);
-                ISerrializer serrializer = new JsonParser();
+                ISerializer serrializer = new JsonParser();
                 string xml = serrializer.Serialize(this);
                 writer.Write(xml);
                 writer.Close();

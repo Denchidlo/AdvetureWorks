@@ -21,6 +21,46 @@ namespace Northwind.ServiceLayer.API
         {
             try
             {
+                Task<IEnumerable<Customer>> customers = provider.GetCustomersAsync();
+                Task<IEnumerable<CustomerAddress>> customerAddresses = provider.GetCustomerAddressesAsync();
+                Task<IEnumerable<Address>> addresses = provider.GetAddressesAsync();
+                Task<IEnumerable<Product>> products = provider.GetProductsAsync();
+                Task<IEnumerable<ProductCategory>> productCategories = provider.GetProductCategoriesAsync();
+                Task<IEnumerable<SalesOrderDetail>> salesDetails = provider.GetSalesOrderDetailsAsync();
+                Task<IEnumerable<SalesOrderHeader>> salesHeaders = provider.GetSalesOrderHeadersAsync();
+                List<Task> tasks = new List<Task> { customers, customerAddresses,
+                                                    addresses, products,
+                                                    productCategories, salesDetails,
+                                                    salesHeaders};
+                while(tasks.Count > 0)
+                {
+                    Task complete = (Task)tasks.Where(e => e.IsCompleted == true).FirstOrDefault();
+                    if (complete == customers)
+                        this.Customers = customers.Result;
+                    else if (complete == customerAddresses)
+                        this.CustomerAddresses = customerAddresses.Result;
+                    else if (complete == addresses)
+                        this.Addresses = addresses.Result;
+                    else if (complete == products)
+                        this.Products = products.Result;
+                    else if (complete == productCategories)
+                        this.ProductCategories = productCategories.Result;
+                    else if (complete == salesDetails)
+                        this.SalesOrderDetails = salesDetails.Result;
+                    else if (complete == salesHeaders)
+                        this.SalesOrderHeaders = salesHeaders.Result;
+                    tasks.Remove(complete);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error occured in Database.UpdateAsync()\n{ex.Message}");
+            }  
+        }
+        public void UpdateDeprecated()
+        {
+            try
+            {
                 this.Customers = provider.GetCustomers();
                 this.CustomerAddresses = provider.GetCustomerAddresses();
                 this.Addresses = provider.GetAddresses();
@@ -33,6 +73,14 @@ namespace Northwind.ServiceLayer.API
             {
                 throw new Exception($"Error occured in Database.Update()\n{ex.Message}");
             }
+        }
+        public async void UpdateAsync()
+        {
+            await Task.Run(() => Update());
+        }
+        public async void UpdateDeprecatedAsync()
+        {
+            await Task.Run(() => UpdateDeprecated());
         }
         public IEnumerable<Customer> Customers { get; private set; }
         public IEnumerable<CustomerAddress> CustomerAddresses { get; private set; }
@@ -55,7 +103,6 @@ namespace Northwind.ServiceLayer.API
                 DetailedSummary temp = new DetailedSummary();
                 temp.SalesOrderID = order.SalesOrderID;
                 temp.ProductId = order.ProductID;
-                //temp.LineTotal = order.LineTotal;
                 Product product = GetProduct(temp.ProductId);
                 temp.ProductName = product.Name;
                 temp.ProductNumber = product.ProductNumber;
@@ -82,6 +129,10 @@ namespace Northwind.ServiceLayer.API
                 list.Add(temp);
             }
             this.DetailedSummaries = list;
+        }
+        public async void CalculateSummaryAsync()
+        {
+            await Task.Run(() => CalculateSummary());
         }
         public DetailedSummary GetDetailedSummary(int id)
         {
@@ -131,6 +182,49 @@ namespace Northwind.ServiceLayer.API
                 if (el.SalesOrderID == id)
                     return el;
             return null;
+        }
+        public SalesOrderDetail GetSalesOrderDetail(int id)
+        {
+            foreach (var el in SalesOrderDetails)
+                if (el.SalesOrderID == id)
+                    return el;
+            return null;
+        }
+        public async Task<DetailedSummary> GetDetailedSummaryAsync(int orderId)
+        {
+            return await Task.Run(() => GetDetailedSummary(orderId));
+        }
+        public async Task<Customer> GetCustomerAsync(int Id)
+        {
+            return await Task.Run(() => GetCustomer(Id));
+        }
+        public async Task<Address> GetCustomerAddressAsync(int customerId)
+        {
+            return await Task.Run(() => GetCustomerAddress(customerId));
+        }
+        public async Task<Address> GetAddressAsync(int addressId)
+        {
+            return await Task.Run(() => GetAddress(addressId));
+        }
+        public async Task<Product> GetProductAsync(int id)
+        {
+            return await Task.Run(() => GetProduct(id));
+        }
+        public async Task<IEnumerable<Product>> GetProductsAsync(int categoryId)
+        {
+            return await Task.Run(() => GetProducts(categoryId));
+        }
+        public async Task<ProductCategory> GetProductCategoryAsync(int id)
+        {
+            return await Task.Run(() => GetProductCategory(id));
+        }
+        public async Task<SalesOrderHeader> GetSalesOrderHeaderAsync(int id)
+        {
+            return await Task.Run(() => GetSalesOrderHeader(id));
+        }
+        public async Task<SalesOrderDetail> GetSalesOrderDetailAsync(int id)
+        {
+            return await Task.Run(() => GetSalesOrderDetail(id));
         }
         public void Dispose()
         {

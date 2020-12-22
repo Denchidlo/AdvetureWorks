@@ -1,0 +1,11 @@
+﻿Test 1:22.12.2020 14:51:37
+Update():38,1665
+UpdateDeprecated():51,2538
+
+Test 2:22.12.2020 14:55:20
+GetCustomers():124,4774
+GetCustomersAsync():29,9295
+
+Test 3:22.12.2020 14:57:58
+GetSalesOrderHeaders():93,9748
+GetSalesOrderHeadersAsync():2,9922

@@ -1,6 +1,7 @@
 ﻿using Northwind.ConfigurationManager.Uitls;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Northwind.ConfigurationManager.Parsers
 {
@@ -22,6 +23,10 @@ namespace Northwind.ConfigurationManager.Parsers
 
             }
             return result;
+        }
+        public static async Task<T> CreateInstanseAsync<T>(Dictionary<string, object> pairs)
+        {
+            return await Task.Run(() => CreateInstanse<T>(pairs));
         }
     }
 }

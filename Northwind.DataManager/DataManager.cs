@@ -14,9 +14,7 @@ namespace Northwind.DataManager
     public class DataManager
     {
         DataConfig config;
-
         public IRepository Repository { get; private set; }
-
         public DataManager()
         {
             DirectoryInfo info = new DirectoryInfo(Environment.CurrentDirectory);
@@ -25,7 +23,6 @@ namespace Northwind.DataManager
             Repository = new Database(config.ConnectionString, config.Type);
             Repository.CalculateSummary();
         }
-
         public DataManager(DataConfig cfg)
         {
             DirectoryInfo info = new DirectoryInfo(Environment.CurrentDirectory);
@@ -35,16 +32,19 @@ namespace Northwind.DataManager
             Repository = new Database(config.ConnectionString, config.Type);
             Repository.CalculateSummary();
         }
-
         public void MakeLog()
         {
-            ISerrializer serrializer = new XmlParser();
+            ISerializer serrializer = new XmlParser();
             string s = serrializer.Serialize(Repository.DetailedSummaries);
             string pth = $"{this.config.TargetPath}\\file_{DateTime.Now.Date.ToString("MM.dd.yyyy").Replace(':', '-')}.xml";
             using (StreamWriter sw = new StreamWriter(pth))
             {
                 sw.Write(s);
             }
+        }
+        public async void MakeLogAsync()
+        {
+            await Task.Run(() => MakeLog());
         }
     }
 }

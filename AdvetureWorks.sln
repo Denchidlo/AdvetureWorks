@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Northwind.DataManager", "No
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Northwind.DataExplorer", "Northwind.DataExplorer\Northwind.DataExplorer.csproj", "{6905F61F-69F5-49F5-8400-3C19B57E15E7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sandbox", "Sandbox\Sandbox.csproj", "{E3620261-32DA-4DA1-B7FE-2DA934F6A1CC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +53,10 @@ Global
 		{6905F61F-69F5-49F5-8400-3C19B57E15E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6905F61F-69F5-49F5-8400-3C19B57E15E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6905F61F-69F5-49F5-8400-3C19B57E15E7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E3620261-32DA-4DA1-B7FE-2DA934F6A1CC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E3620261-32DA-4DA1-B7FE-2DA934F6A1CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E3620261-32DA-4DA1-B7FE-2DA934F6A1CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E3620261-32DA-4DA1-B7FE-2DA934F6A1CC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

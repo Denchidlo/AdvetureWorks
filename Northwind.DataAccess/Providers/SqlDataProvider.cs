@@ -19,7 +19,7 @@ namespace Northwind.DataAccess.Providers
             {
                 connection = new SqlConnection(connectionString);
                 connection.Open();
-                Log(DateTime.Now, "Connected to server by LinqDataProvider");
+                LogAsync(DateTime.Now, "Connected to server by SqlDataProvider");
                 scope.Complete();
             }
         }
@@ -27,7 +27,9 @@ namespace Northwind.DataAccess.Providers
         {
             try
             {
-                Log(DateTime.Now, "GetProductCategories() was invoked");
+                if (connection.State == System.Data.ConnectionState.Closed || connection.State == System.Data.ConnectionState.Broken)
+                    connection.Open();
+                LogAsync(DateTime.Now, "GetProductCategories() was invoked");
                 SqlCommand command = new SqlCommand("GetProductCategories", connection);
                 command.CommandType = System.Data.CommandType.StoredProcedure;
                 using (TransactionScope scope = new TransactionScope())
@@ -39,7 +41,7 @@ namespace Northwind.DataAccess.Providers
             }
             catch (Exception ex)
             {
-                Log(DateTime.Now, $"Loading failed in GetProductCategories() \n{ex.Message}");
+                LogAsync(DateTime.Now, $"Loading failed in GetProductCategories() \n{ex.Message}");
                 throw ex;
             }
         }
@@ -47,7 +49,9 @@ namespace Northwind.DataAccess.Providers
         {
             try
             {
-                Log(DateTime.Now, "GetProducts() was invoked");
+                if (connection.State == System.Data.ConnectionState.Closed || connection.State == System.Data.ConnectionState.Broken)
+                    connection.Open();
+                LogAsync(DateTime.Now, "GetProducts() was invoked");
                 SqlCommand command = new SqlCommand("GetProducts", connection);
                 command.CommandType = System.Data.CommandType.StoredProcedure;
                 using (TransactionScope scope = new TransactionScope())
@@ -59,7 +63,7 @@ namespace Northwind.DataAccess.Providers
             }
             catch (Exception ex)
             {
-                Log(DateTime.Now, $"Loading failed in GetProducts() \n{ex.Message}");
+                LogAsync(DateTime.Now, $"Loading failed in GetProducts() \n{ex.Message}");
                 throw ex;
             }
         }
@@ -67,7 +71,9 @@ namespace Northwind.DataAccess.Providers
         {
             try
             {
-                Log(DateTime.Now, "GetCustomers() was invoked");
+                if (connection.State == System.Data.ConnectionState.Closed || connection.State == System.Data.ConnectionState.Broken)
+                    connection.Open();
+                LogAsync(DateTime.Now, "GetCustomers() was invoked");
                 SqlCommand command = new SqlCommand("GetCustomers", connection);
                 command.CommandType = System.Data.CommandType.StoredProcedure;
                 using (TransactionScope scope = new TransactionScope())
@@ -79,7 +85,7 @@ namespace Northwind.DataAccess.Providers
             }
             catch (Exception ex)
             {
-                Log(DateTime.Now, $"Loading failed in GetCustomers() \n{ex.Message}");
+                LogAsync(DateTime.Now, $"Loading failed in GetCustomers() \n{ex.Message}");
                 throw ex;
             }
         }
@@ -87,7 +93,9 @@ namespace Northwind.DataAccess.Providers
         {
             try
             {
-                Log(DateTime.Now, "GetCustomerAddresses() was invoked");
+                if (connection.State == System.Data.ConnectionState.Closed || connection.State == System.Data.ConnectionState.Broken)
+                    connection.Open();
+                LogAsync(DateTime.Now, "GetCustomerAddresses() was invoked");
                 SqlCommand command = new SqlCommand("GetCustomerAddresses", connection);
                 command.CommandType = System.Data.CommandType.StoredProcedure;
                 using (TransactionScope scope = new TransactionScope())
@@ -99,7 +107,7 @@ namespace Northwind.DataAccess.Providers
             }
             catch (Exception ex)
             {
-                Log(DateTime.Now, $"Loading failed in GetCustomerAddresses() \n{ex.Message}");
+                LogAsync(DateTime.Now, $"Loading failed in GetCustomerAddresses() \n{ex.Message}");
                 throw ex;
             }
         }
@@ -107,7 +115,9 @@ namespace Northwind.DataAccess.Providers
         {
             try
             {
-                Log(DateTime.Now, "GetAddresses() was invoked");
+                if (connection.State == System.Data.ConnectionState.Closed || connection.State == System.Data.ConnectionState.Broken)
+                    connection.Open();
+                LogAsync(DateTime.Now, "GetAddresses() was invoked");
                 SqlCommand command = new SqlCommand("GetAddresses", connection);
                 command.CommandType = System.Data.CommandType.StoredProcedure;
                 using (TransactionScope scope = new TransactionScope())
@@ -119,7 +129,7 @@ namespace Northwind.DataAccess.Providers
             }
             catch (Exception ex)
             {
-                Log(DateTime.Now, $"Loading failed in GetAddresses() \n{ex.Message}");
+                LogAsync(DateTime.Now, $"Loading failed in GetAddresses() \n{ex.Message}");
                 throw ex;
             }
         }
@@ -127,7 +137,9 @@ namespace Northwind.DataAccess.Providers
         {
             try
             {
-                Log(DateTime.Now, "GetSalesOrderDetails() was invoked");
+                if (connection.State == System.Data.ConnectionState.Closed || connection.State == System.Data.ConnectionState.Broken)
+                    connection.Open();
+                LogAsync(DateTime.Now, "GetSalesOrderDetails() was invoked");
                 SqlCommand command = new SqlCommand("GetSalesOrderDetails", connection);
                 command.CommandType = System.Data.CommandType.StoredProcedure;
                 using (TransactionScope scope = new TransactionScope())
@@ -139,7 +151,7 @@ namespace Northwind.DataAccess.Providers
             }
             catch (Exception ex)
             {
-                Log(DateTime.Now, $"Loading failed in GetSalesOrderDetails() \n{ex.Message}");
+                LogAsync(DateTime.Now, $"Loading failed in GetSalesOrderDetails() \n{ex.Message}");
                 throw ex;
             }
         }
@@ -147,7 +159,9 @@ namespace Northwind.DataAccess.Providers
         {
             try
             {
-                Log(DateTime.Now, "GetSalesOrderHeaders() was invoked");
+                if (connection.State == System.Data.ConnectionState.Closed || connection.State == System.Data.ConnectionState.Broken)
+                    connection.Open();
+                LogAsync(DateTime.Now, "GetSalesOrderHeaders() was invoked");
                 SqlCommand command = new SqlCommand("GetSalesOrderHeaders", connection);
                 command.CommandType = System.Data.CommandType.StoredProcedure;
                 using (TransactionScope scope = new TransactionScope())
@@ -159,9 +173,37 @@ namespace Northwind.DataAccess.Providers
             }
             catch (Exception ex)
             {
-                Log(DateTime.Now, $"Loading failed in GetSalesOrderHeaders() \n{ex.Message}");
+                LogAsync(DateTime.Now, $"Loading failed in GetSalesOrderHeaders() \n{ex.Message}");
                 throw ex;
             }
+        }
+        public async Task<IEnumerable<Address>> GetAddressesAsync()
+        {
+            return await Task.Run(() => GetAddresses());
+        }
+        public async Task<IEnumerable<CustomerAddress>> GetCustomerAddressesAsync()
+        {
+            return await Task.Run(() => GetCustomerAddresses());
+        }
+        public async Task<IEnumerable<Customer>> GetCustomersAsync()
+        {
+            return await Task.Run(() => GetCustomers());
+        }
+        public async Task<IEnumerable<Product>> GetProductsAsync()
+        {
+            return await Task.Run(() => GetProducts());
+        }
+        public async Task<IEnumerable<ProductCategory>> GetProductCategoriesAsync()
+        {
+            return await Task.Run(() => GetProductCategories());
+        }
+        public async Task<IEnumerable<SalesOrderHeader>> GetSalesOrderHeadersAsync()
+        {
+            return await Task.Run(() => GetSalesOrderHeaders());
+        }
+        public async Task<IEnumerable<SalesOrderDetail>> GetSalesOrderDetailsAsync()
+        {
+            return await Task.Run(() => GetSalesOrderDetails());
         }
         List<Dictionary<string, object>> Parse(SqlDataReader reader)
         {
@@ -203,6 +245,10 @@ namespace Northwind.DataAccess.Providers
                 command.ExecuteNonQuery();
                 scope.Complete();
             }
+        }
+        public async void LogAsync(DateTime date, string message)
+        {
+            await Task.Run(() => Log(date, message));
         }
         public void Dispose()
         {

@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Threading.Tasks;
 
 namespace Northwind.ConfigurationManager.Parsers
 {
-    public interface ISerrializer
+    public interface ISerializer
     {
         string Serialize(object obj);
+        Task<string> SerializeAsync(object obj);
     }
 }

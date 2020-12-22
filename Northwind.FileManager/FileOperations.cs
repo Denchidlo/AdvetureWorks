@@ -123,7 +123,7 @@ namespace Northwind.FileManager
             using (var file = File.Open(src, FileMode.Create))
             {
                 StreamWriter writer = new StreamWriter(file);
-                ISerrializer serrializer = new JsonParser();
+                ISerializer serrializer = new JsonParser();
                 string xml = serrializer.Serialize(configuration);
                 writer.Write(xml);
                 writer.Close();

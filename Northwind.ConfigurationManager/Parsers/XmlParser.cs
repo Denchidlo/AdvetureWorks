@@ -7,10 +7,11 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 
 namespace Northwind.ConfigurationManager.Parsers
 {
-    public class XmlParser : ISerrializer, IDeserializer
+    public class XmlParser : ISerializer, IDeserializer
     {
         public string Serialize(object obj)
         {
@@ -20,6 +21,14 @@ namespace Northwind.ConfigurationManager.Parsers
         {
             List<DeserializableObject> objects = Parse(xml, true);
             return Deserialize<T>(objects);
+        }
+        public async Task<string> SerializeAsync(object obj)
+        {
+            return await Task.Run(() => Serialize(obj));
+        }
+        public async Task<T> DeserializeAsync<T>(string xml)
+        {
+            return await Task.Run(() => Deserialize<T>(xml));
         }
         T Deserialize<T>(List<DeserializableObject> objects)
         {

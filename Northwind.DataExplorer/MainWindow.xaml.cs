@@ -65,7 +65,6 @@ namespace Northwind.DataExplorer
                 MessageBox.Show("MainWindow() :\n" + ex.Message);
             }
         }
-
         private void Products_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             try
@@ -79,7 +78,6 @@ namespace Northwind.DataExplorer
                 MessageBox.Show("Item_MouseDoubleClick(object sender, MouseButtonEventArgs e) :\n" + ex.Message);
             }
         }
-
         private void ProductCategories_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             try

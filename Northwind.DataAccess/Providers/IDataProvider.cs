@@ -22,5 +22,12 @@ namespace Northwind.DataAccess.Providers
         IEnumerable<Address> GetAddresses();
         IEnumerable<SalesOrderDetail> GetSalesOrderDetails();
         IEnumerable<SalesOrderHeader> GetSalesOrderHeaders();
+        Task<IEnumerable<ProductCategory>> GetProductCategoriesAsync();
+        Task<IEnumerable<Product>> GetProductsAsync();
+        Task<IEnumerable<Customer>> GetCustomersAsync();
+        Task<IEnumerable<CustomerAddress>> GetCustomerAddressesAsync();
+        Task<IEnumerable<Address>> GetAddressesAsync();
+        Task<IEnumerable<SalesOrderDetail>> GetSalesOrderDetailsAsync();
+        Task<IEnumerable<SalesOrderHeader>> GetSalesOrderHeadersAsync();
     }
 }

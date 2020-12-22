@@ -7,10 +7,11 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 
 namespace Northwind.ConfigurationManager.Parsers
 {
-    public class JsonParser : ISerrializer, IDeserializer
+    public class JsonParser : ISerializer, IDeserializer
     {
         public string Serialize(object obj)
         {
@@ -19,6 +20,14 @@ namespace Northwind.ConfigurationManager.Parsers
         public T Deserialize<T>(string json)
         {
             return Deserialize<T>(Parse(json));
+        }
+        public async Task<string> SerializeAsync(object obj)
+        {
+            return await Task.Run(() => Serialize(obj));
+        }
+        public async Task<T> DeserializeAsync<T>(string json)
+        {
+            return await Task.Run(() => Deserialize<T>(json));
         }
         static string Serialize(object obj, int depth)
         {
